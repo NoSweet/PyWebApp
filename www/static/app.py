@@ -3,7 +3,9 @@ import logging; logging.basicConfig(level=logging.INFO)
 import asyncio, os, json, time
 from datetime import datetime
 
-from aiohttp import web,web_runner
+from aiohttp import web, web_runner
+
+import aiomysql
 
 routes = web.RouteTableDef()
 
@@ -19,3 +21,11 @@ def init():
     web.run_app(app, host='127.0.0.1', port=9527)
 
 init()
+
+@asyncio.coroutine
+def creat_pool(loop, **kw):
+    logging.info('create database connection pool...')
+    global __pool
+    __pool = yield from aiomysql.create_pool(
+        
+    )
