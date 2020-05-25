@@ -22,10 +22,9 @@ def init():
 
 init()
 
-@asyncio.coroutine
-def creat_pool(loop, **kw):
-    logging.info('create database connection pool...')
-    global __pool
-    __pool = yield from aiomysql.create_pool(
-        
-    )
+
+
+
+
+
+
