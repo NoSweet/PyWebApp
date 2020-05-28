@@ -1,4 +1,4 @@
-import asyncio, functools, inspect, logging
+import asyncio, functools, inspect, logging, os
 from aiohttp import web
 from urllib import parse
 from apis import APIError
@@ -34,7 +34,7 @@ def get_required_kw_args(fn):
     args = []
     params = inspect.signature(fn).parameters
     for name, param in params.items():
-        if params.kind == inspect.Parameter.KEYWORD_ONLY and param.default == inspect.Parameter.empty:
+        if param.kind == inspect.Parameter.KEYWORD_ONLY and param.default == inspect.Parameter.empty:
             args.append(name)
     return tuple(args)
 
@@ -145,7 +145,7 @@ def add_route(app, fn):
     if not asyncio.iscoroutinefunction(fn) and not inspect.isgeneratorfunction(fn):
         fn = asyncio.coroutine(fn)
     logging.info('add route %s %s => %s(%s)' % (method, path, fn.__name__, ','.join(inspect.signature(fn).parameters.keys())))
-    app.route.add_route(method, path, RequestHandler(app, fn))
+    app.router.add_route(method, path, RequestHandler(app, fn))
     
 def add_routes(app, module_name):
     n = module_name.rfind('.')
@@ -163,3 +163,9 @@ def add_routes(app, module_name):
             path = getattr(fn, '__route__', None)
             if method and path:
                 add_route(app, fn)
+
+#add_static(app)
+def add_static(app):
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
+    app.router.add_static('/static/', path)
+    logging.info('add static %s ==> %s' % ('/static/', path))
