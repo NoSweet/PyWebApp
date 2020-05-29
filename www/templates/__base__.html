@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--
+
 {% macro pagination(url, page) %}
     <ul class="uk-pagination">
         {% if page.has_previous %}
@@ -15,14 +15,13 @@
         {% endif %}
     </ul>
 {% endmacro %}
--->
+
 <html>
 <head>
     <meta charset="utf-8" />
     {% block meta %}<!-- block meta  -->{% endblock %}
     <title>{% block title %} ? {% endblock %} - Awesome Python Webapp</title>
     <link rel="stylesheet" href="/static/css/uikit.min.css">
-    <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
     <link rel="stylesheet" href="/static/css/awesome.css" />
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/sha1.min.js"></script>
@@ -33,16 +32,28 @@
     {% block beforehead %}<!-- before head  -->{% endblock %}
 </head>
 <body>
-    <nav class="uk-navbar uk-navbar-attached uk-margin-bottom">
-        <div class="uk-container uk-container-center">
-            <a href="/" class="uk-navbar-brand">Awesome</a>
+
+    <!-- 导航栏 -->
+    <nav class="uk-navbar-container" uk-navbar style="background-color:rgba(255,255,255,0);">
+        <!-- 导航标题 -->
+        <div class="uk-navbar-left uk-margin-medium-top uk-margin-medium-bottom">
+            <a class="uk-navbar-item uk-logo uk-padding-large" href="/">
+                <span class="uk-icon uk-margin-small-right uk-padding-remove-left" uk-icon="lemon4" ratio="2"></span>
+                 Awesome  
+            </a>
+
+            <!--导航几个type -->
             <ul class="uk-navbar-nav">
                 <li data-url="blogs"><a href="/"><i class="uk-icon-home"></i> 日志</a></li>
                 <li><a target="_blank" href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000"><i class="uk-icon-book"></i> 教程</a></li>
                 <li><a target="_blank" href="https://github.com/michaelliao/awesome-python3-webapp"><i class="uk-icon-code"></i> 源码</a></li>
             </ul>
-            <div class="uk-navbar-flip">
-                <ul class="uk-navbar-nav">
+            <div class="uk-navbar-right">
+               
+            </div>
+        </div>
+        <div class="uk-navbar-right uk-margin-medium-top uk-margin-medium-bottom uk-width-1-4">
+            <ul class="uk-navbar-nav">
                 {% if __user__ %}
                     <li class="uk-parent" data-uk-dropdown>
                         <a href="#0"><i class="uk-icon-user"></i> {{ __user__.name }}</a>
@@ -57,9 +68,29 @@
                     <li><a href="/register"><i class="uk-icon-edit"></i> 注册</a></li>
                 {% endif %}
                 </ul>
-            </div>
         </div>
     </nav>
+
+
+    <!-- <nav class="uk-navbar-container" uk-navbar style="background-color:rgba(255,255,255,0);">
+        <div class="uk-navbar-left uk-margin-medium-top uk-margin-medium-bottom">
+            <a class="uk-navbar-item uk-logo uk-padding-remove-left" href="/">
+                <span class="uk-icon uk-margin-small-right uk-padding-remove-left" uk-icon="lemon4" ratio="2"></span>
+                 凹大卜  
+            </a>
+            <ul class="uk-navbar-nav">
+                <li><a href="/"> Article | 日志</a></li>
+                <li><a href="/landscape"> Landscape | 景观</a></li>
+                <li><a href="/tags/coding"> Programming | 编程</a></li>
+                <li><a href="/tags/tutorial"> Tutorial | 教程</a></li>
+            </ul>
+        </div>
+        <div class="uk-navbar-right uk-margin-medium-top uk-margin-medium-bottom">
+            <ul class="uk-navbar-nav">
+            
+            </ul>
+        </div>
+    </nav> -->
 
     <div class="uk-container uk-container-center">
         <div class="uk-grid">

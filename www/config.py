@@ -9,16 +9,16 @@ class Dict(dict):
     Simple dict but support access as x.y style.
     '''
     def __init__(self, names=(), values=(), **kw):
-        super().__init__(**kw)
+        super(Dict, self).__init__(**kw)
         for k, v in zip(names, values):
             self[k] = v
-    
+
     def __getattr__(self, key):
         try:
             return self[key]
         except KeyError:
             raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
-    
+
     def __setattr__(self, key, value):
         self[key] = value
 
@@ -34,11 +34,10 @@ def merge(defaults, override):
             r[k] = v
     return r
 
-
-def toDic(d):
+def toDict(d):
     D = Dict()
     for k, v in d.items():
-        D[k] = toDic(v) if isinstance(v, dict) else v
+        D[k] = toDict(v) if isinstance(v, dict) else v
     return D
 
 configs = config_default.configs
@@ -49,4 +48,4 @@ try:
 except ImportError:
     pass
 
-configs = toDic(configs)
+configs = toDict(configs)
