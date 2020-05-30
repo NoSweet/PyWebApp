@@ -149,7 +149,7 @@ class Model(dict, metaclass=ModelMetaclass):
         rs = yield from select(''.join(sql), args, 1)
         if len(rs) == 0:
             return None
-        return rs[0]['_num']
+        return rs[0]['_num_']
 
     #查询满足条件的所有数据
     @classmethod
